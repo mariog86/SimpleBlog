@@ -10,11 +10,13 @@ namespace SimpleBlog.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.selectedItem = "homt";
             return View();
         }
 
         public ActionResult About()
         {
+            ViewBag.selectedItem = "about";
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -22,6 +24,7 @@ namespace SimpleBlog.Controllers
 
         public ActionResult Contact()
         {
+            ViewBag.selectedItem = "contact";
             ViewBag.Message = "Your contact page.";
 
             return View();
