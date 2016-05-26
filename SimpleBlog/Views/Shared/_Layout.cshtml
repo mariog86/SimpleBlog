@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@ViewBag.Title - My ASP.NET Application</title>
   @Styles.Render("~/Content/css")
-  @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
   <script type="text/javascript">
     var appInsights = window.appInsights ||
       function(config) {
@@ -48,13 +50,16 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+        <li class=@(@ViewBag.selectedItem == "blog" ? "active" : "")>
+          <a href="@Url.Action("Index", "Blog")">Blog</a>
+        </li>
         <li class=@(@ViewBag.selectedItem == "about" ? "active" : "")>
           <a href="@Url.Action("About", "Home")">About</a>
         </li>
         <li class=@(@ViewBag.selectedItem == "contact" ? "active" : "")>
           <a href="@Url.Action("Contact", "Home")">Contact</a>
         </li>
-        <li class = @(@ViewBag.selectedItem == "extra" ? "active" : "")>
+        <li class=@(@ViewBag.selectedItem == "extra" ? "active" : "")>
           <a href="@Url.Action("Index", "Extra")">Extra</a>
         </li>
       </ul>
@@ -69,8 +74,6 @@
   </footer>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 </body>
 </html>
