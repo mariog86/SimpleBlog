@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="DAL\BlogContext.cs" />
     <Compile Include="DAL\BlogInitializer.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\ArticleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
