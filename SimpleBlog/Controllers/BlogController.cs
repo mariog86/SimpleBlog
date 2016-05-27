@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SimpleBlog.Core.DAL;
 
 namespace SimpleBlog.Controllers
 {
     public class BlogController : Controller
     {
+        private readonly BlogContext _db = new BlogContext();
+
         // GET: Blog
         public ActionResult Index(int? articleId, bool? forceReload)
         {
-            MvcApplication.mainBlog.GetAllBlogArticles(forceReload);
-            ViewBag.Articles = (List<SimpleBlog.Core.Models.Article>)MvcApplication.mainBlog;
+            ViewBag.Articles = _db.Articles.ToList();
             // WARNING!!! Insure that ViewBag.BlogPath terminates with a slash /
             ViewBag.BlogPath = "../blogFiles/";
             if (articleId != null)
