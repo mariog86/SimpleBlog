@@ -4,6 +4,8 @@ using System.Linq;
 using SimpleBlog.Core.DAL;
 using SimpleBlog.Core.Models;
 
+using Z.EntityFramework.Plus;
+
 namespace SimpleBlog.Core
 {
     public class BlogRepository : IBlogRepository
@@ -124,6 +126,17 @@ namespace SimpleBlog.Core
         {
             return _dbContext.Set<Post>()
                     .Count(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.Tags.Any(t => t.Name.Equals(search))));
+        }
+
+        public Post Post(int year, int month, string titleSlug)
+        {
+            var query = _dbContext.Set<Post>()
+                                .Where(p => p.PostedOn.Year == year && p.PostedOn.Month == month && p.UrlSlug.Equals(titleSlug))
+                                .Include(p => p.Category);
+
+            query.Include(p => p.Tags).Future();
+
+            return query.Future().Single();
         }
     }
 }
