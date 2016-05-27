@@ -9,26 +9,26 @@ namespace SimpleBlog.Core
     public class BlogRepository : IBlogRepository
     {
         // NHibernate object
-        private readonly BlogContext _dbContext;
+        private readonly IBlogContext _dbContext;
 
-        public BlogRepository(BlogContext dbContext)
+        public BlogRepository(IBlogContext dbContext)
         {
             _dbContext = dbContext;
         }
 
         public IList<Post> Posts(int pageNo, int pageSize)
         {
-            var posts = _dbContext.Posts
-                .Where(p => p.Published)
-                .OrderByDescending(p => p.PostedOn)
-                .Skip(pageNo*pageSize)
-                .Take(pageSize)
-                .Include(p => p.Category)
-                .ToList();
+            var posts = _dbContext.Set<Post>()
+                                  .Where(p => p.Published)
+                                  .OrderByDescending(p => p.PostedOn)
+                                  .Skip(pageNo * pageSize)
+                                  .Take(pageSize)
+                                  .Include(p => p.Category)
+                                  .ToList();
 
             var postIds = posts.Select(p => p.Id).ToList();
 
-            return _dbContext.Posts
+            return _dbContext.Set<Post>()
                   .Where(p => postIds.Contains(p.Id))
                   .OrderByDescending(p => p.PostedOn)
                   .Include(p => p.Tags)
@@ -37,7 +37,7 @@ namespace SimpleBlog.Core
 
         public int TotalPosts()
         {
-            return _dbContext.Posts.Count(p => p.Published);
+            return _dbContext.Set<Post>().Count(p => p.Published);
         }
     }
 }

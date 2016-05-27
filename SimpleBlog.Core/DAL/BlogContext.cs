@@ -4,10 +4,14 @@ using SimpleBlog.Core.Models;
 
 namespace SimpleBlog.Core.DAL
 {
-    public class BlogContext : DbContext
+    public class BlogContext : DbContext, IBlogContext
     {
 
         public BlogContext() : base("BlogContext")
+        {
+        }
+
+        public BlogContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
         }
 
