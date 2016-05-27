@@ -69,5 +69,61 @@ namespace SimpleBlog.Core
             return _dbContext.Set<Category>()
                         .FirstOrDefault(t => t.UrlSlug.Equals(categorySlug));
         }
+
+        public IList<Post> PostsForTag(string tagSlug, int pageNo, int pageSize)
+        {
+            var posts = _dbContext.Set<Post>()
+                              .Where(p => p.Published && p.Tags.Any(t => t.UrlSlug.Equals(tagSlug)))
+                              .OrderByDescending(p => p.PostedOn)
+                              .Skip(pageNo * pageSize)
+                              .Take(pageSize)
+                              .Include(p => p.Category)
+                              .ToList();
+
+            var postIds = posts.Select(p => p.Id).ToList();
+
+            return _dbContext.Set<Post>()
+                          .Where(p => postIds.Contains(p.Id))
+                          .OrderByDescending(p => p.PostedOn)
+                          .Include(p => p.Tags)
+                          .ToList();
+        }
+
+        public int TotalPostsForTag(string tagSlug)
+        {
+            return _dbContext.Set<Post>()
+                        .Count(p => p.Published && p.Tags.Any(t => t.UrlSlug.Equals(tagSlug)));
+        }
+
+        public Tag Tag(string tagSlug)
+        {
+            return _dbContext.Set<Tag>()
+                        .FirstOrDefault(t => t.UrlSlug.Equals(tagSlug));
+        }
+
+        public IList<Post> PostsForSearch(string search, int pageNo, int pageSize)
+        {
+            var posts = _dbContext.Set<Post>()
+                                  .Where(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.Tags.Any(t => t.Name.Equals(search))))
+                                  .OrderByDescending(p => p.PostedOn)
+                                  .Skip(pageNo * pageSize)
+                                  .Take(pageSize)
+                                  .Include(p => p.Category)
+                                  .ToList();
+
+            var postIds = posts.Select(p => p.Id).ToList();
+
+            return _dbContext.Set<Post>()
+                  .Where(p => postIds.Contains(p.Id))
+                  .OrderByDescending(p => p.PostedOn)
+                  .Include(p => p.Tags)
+                  .ToList();
+        }
+
+        public int TotalPostsForSearch(string search)
+        {
+            return _dbContext.Set<Post>()
+                    .Count(p => p.Published && (p.Title.Contains(search) || p.Category.Name.Equals(search) || p.Tags.Any(t => t.Name.Equals(search))));
+        }
     }
 }

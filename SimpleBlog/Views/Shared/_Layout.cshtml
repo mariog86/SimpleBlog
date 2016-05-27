@@ -12,37 +12,39 @@
 </head>
 
 <body>
-  <div id="main">
-
-    <!-- Header -->
-    <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-          <h1><a href="/">Simple<span class="logo_colour">Blog</span></a></h1>
-          <h2>Writings, Experiments and More...</h2>
-        </div>
+<div id="main">
+  <script src="@Url.Content("~/Scripts/app.js")"></script>
+  <!-- Header -->
+  <div id="header">
+    <div id="logo">
+      <div id="logo_text">
+        <h1><a href="/">Simple<span class="logo_colour">Blog</span></a>
+        </h1>
+        <h2>Writings, Experiments and More...</h2>
       </div>
-
-      <!-- Navigation -->
-      <div id="menubar">
-        <ul id="menu">
-          <li>@Html.ActionLink("Posts", "Posts", "Blog")</li>
-          <li>@Html.ActionLink("Contact", "Contact")</li>
-          <li>@Html.ActionLink("About Me", "AboutMe")</li>
-        </ul>
-      </div>
-
     </div>
 
-    <!-- Main Content -->
-    <div id="site_content">
-      @RenderBody()
+    <!-- Navigation -->
+    <div id="menubar">
+      <ul id="menu">
+        <li>@Html.ActionLink("Posts", "Posts", "Blog")</li>
+        <li>@Html.ActionLink("Contact", "Contact")</li>
+        <li>@Html.ActionLink("About Me", "AboutMe")</li>
+      </ul>
     </div>
 
-    <!-- Footer -->
-    <div id="footer">
-      Copyright © @DateTime.Now.Year SimpleBlog All Rights Reserved
-    </div>
   </div>
+
+  <!-- Main Content -->
+  <div id="site_content">
+    @Html.Partial("_Search")
+    @RenderBody()
+  </div>
+
+  <!-- Footer -->
+  <div id="footer">
+    Copyright © @DateTime.Now.Year SimpleBlog All Rights Reserved
+  </div>
+</div>
 </body>
 </html>
