@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlogRepository.cs" />
     <Compile Include="DAL\BlogContext.cs" />
     <Compile Include="DAL\BlogInitializer.cs" />
+    <Compile Include="IBlogRepository.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />
