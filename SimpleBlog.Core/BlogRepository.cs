@@ -138,5 +138,10 @@ namespace SimpleBlog.Core
 
             return query.Future().Single();
         }
+
+        public IList<Category> Categories()
+        {
+            return _dbContext.Set<Category>().OrderBy(p => p.Name).ToList();
+        }
     }
 }

@@ -67,5 +67,12 @@ namespace SimpleBlog.Controllers
             var viewModel = new ListViewModel(_blogRepository, s, "Search", p);
             return View("List", viewModel);
         }
+
+        [ChildActionOnly]
+        public PartialViewResult Sidebars()
+        {
+            var widgetViewModel = new WidgetViewModel(_blogRepository);
+            return PartialView("_Sidebars", widgetViewModel);
+        }
     }
 }
