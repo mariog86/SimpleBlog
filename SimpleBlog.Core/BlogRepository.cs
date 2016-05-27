@@ -143,5 +143,10 @@ namespace SimpleBlog.Core
         {
             return _dbContext.Set<Category>().OrderBy(p => p.Name).ToList();
         }
+
+        public IList<Tag> Tags()
+        {
+            return _dbContext.Set<Tag>().OrderBy(p => p.Name).ToList();
+        }
     }
 }
