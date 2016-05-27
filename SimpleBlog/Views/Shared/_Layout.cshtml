@@ -18,7 +18,7 @@
     <div id="header">
       <div id="logo">
         <div id="logo_text">
-          <h1><a href="/">Just<span class="logo_colour">Blog</span></a></h1>
+          <h1><a href="/">Simple<span class="logo_colour">Blog</span></a></h1>
           <h2>Writings, Experiments and More...</h2>
         </div>
       </div>
@@ -26,22 +26,22 @@
       <!-- Navigation -->
       <div id="menubar">
         <ul id="menu">
-          <li><a href="#">Posts</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">About Me</a></li>
+          <li>@Html.ActionLink("Posts", "Posts", "Blog")</li>
+          <li>@Html.ActionLink("Contact", "Contact")</li>
+          <li>@Html.ActionLink("About Me", "AboutMe")</li>
         </ul>
       </div>
 
     </div>
 
-    <!-- Site Content -->
+    <!-- Main Content -->
     <div id="site_content">
       @RenderBody()
     </div>
 
     <!-- Footer -->
     <div id="footer">
-      Copyright ï¿½ @DateTime.Now.Year JustBlog All Rights Reserved
+      Copyright © @DateTime.Now.Year SimpleBlog All Rights Reserved
     </div>
   </div>
 </body>

@@ -17,17 +17,13 @@ namespace SimpleBlog
         {
             var container = new UnityContainer();
 
+            container.AddNewExtension<RepositoryModule>();
+
             // register all your components with the container here  
             //This is the important line to edit  
             container.RegisterType<IBlogRepository, BlogRepository>();
-
-
-            RegisterTypes(container);
+            
             return container;
-        }
-        public static void RegisterTypes(IUnityContainer container)
-        {
-
         }
     }
 }
