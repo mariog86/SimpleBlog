@@ -105,8 +105,8 @@ No one knows if these robots will make us all move to the moon.",
                 }
             };
 
-            posts.ForEach(s => context.Posts.Add(s));
-            context.SaveChanges();
+            //posts.ForEach(s => context.Posts.Add(s));
+            //context.SaveChanges();
         }
     }
 }

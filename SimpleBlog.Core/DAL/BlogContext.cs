@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using SimpleBlog.Core.Mappings;
 using SimpleBlog.Core.Models;
 
 namespace SimpleBlog.Core.DAL
@@ -20,6 +21,7 @@ namespace SimpleBlog.Core.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Configurations.Add(new PostMapping());
         }
     }
 }

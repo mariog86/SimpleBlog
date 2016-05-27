@@ -19,11 +19,6 @@ namespace SimpleBlog.Core.Mappings
 
             Property(x => x.Description)
                 .HasMaxLength(200);
-            
-            HasMany(x => x.Posts)
-                .WithRequired(t => t.Category)
-                .HasForeignKey(d => d.Category)
-                .WillCascadeOnDelete(true);
         }
     }
 }

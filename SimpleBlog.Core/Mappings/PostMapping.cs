@@ -4,9 +4,9 @@ using SimpleBlog.Core.Models;
 
 namespace SimpleBlog.Core.Mappings
 {
-    public class PostMappping : EntityTypeConfiguration<Post>
+    public class PostMapping : EntityTypeConfiguration<Post>
     {
-        public PostMappping()
+        public PostMapping()
         {
             HasKey(x => x.Id);
 
@@ -38,8 +38,11 @@ namespace SimpleBlog.Core.Mappings
 
             Property(x => x.Modified);
 
+            HasRequired(p => p.Category)
+                .WithMany(b => b.Posts)
+                .Map(m => m.MapKey("Category"))
+                .WillCascadeOnDelete();
 
-            HasRequired(x => x.Category);
             HasMany(x => x.Tags)
                 .WithMany(x => x.Posts)
                 .Map(m => m.ToTable("PostTagMap"));
