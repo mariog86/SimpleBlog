@@ -57,6 +57,9 @@
     <Compile Include="DAL\BlogInitializer.cs" />
     <Compile Include="DAL\IBlogContext.cs" />
     <Compile Include="IBlogRepository.cs" />
+    <Compile Include="Mappings\CategoryMapping.cs" />
+    <Compile Include="Mappings\PostMapping.cs" />
+    <Compile Include="Mappings\TagMapping.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />

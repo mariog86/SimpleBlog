@@ -1,79 +1,48 @@
 ﻿<!DOCTYPE html>
+
 <html>
+
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@ViewBag.Title - My ASP.NET Application</title>
-  @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-  <script type="text/javascript">
-    var appInsights = window.appInsights ||
-      function(config) {
-        function r(config) {
-          t[config] = function() {
-            var i = arguments;
-            t.queue.push(function() { t[config].apply(t, i) })
-          }
-        }
+  <meta name="viewport" content="width=device-width" />
+  <title>@ViewBag.Title</title>
 
-        var t = { config: config }, u = document, e = window, o = "script", s = u.createElement(o), i, f;
-        for (s.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", u.getElementsByTagName(o)[0].parentNode
-            .appendChild(s), t.cookie = u.cookie, t
-            .queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace", "Ajax"];
-          i.length;
-        ) r("track" + i.pop());
-        return r("setAuthenticatedUserContext"), r("clearAuthenticatedUserContext"), config.disableExceptionTracking ||
-        (i = "onerror", r("_" + i), f = e[i], e[i] = function(config, r, u, e, o) {
-          var s = f && f(config, r, u, e, o);
-          return s !== !0 && t["_" + i](config, r, u, e, o), s
-        }), t
-      }({
-        instrumentationKey: "91236936-3c52-4eea-b986-edbfba50bfcd"
-      });
-
-    window.appInsights = appInsights;
-    appInsights.trackPageView();
-  </script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css"
+        href="@Url.Content("~/Content/themes/simple/style.css")" />
 </head>
+
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top navcustom">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      @Html.ActionLink("Application name", "Index", "Home", new {area = ""}, new {@class = "navbar-brand"})
+  <div id="main">
+
+    <!-- Header -->
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <h1><a href="/">Just<span class="logo_colour">Blog</span></a></h1>
+          <h2>Writings, Experiments and More...</h2>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div id="menubar">
+        <ul id="menu">
+          <li><a href="#">Posts</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">About Me</a></li>
+        </ul>
+      </div>
+
     </div>
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class=@(@ViewBag.selectedItem == "blog" ? "active" : "")>
-          <a href="@Url.Action("Index", "Blog")">Blog</a>
-        </li>
-        <li class=@(@ViewBag.selectedItem == "about" ? "active" : "")>
-          <a href="@Url.Action("About", "Home")">About</a>
-        </li>
-        <li class=@(@ViewBag.selectedItem == "contact" ? "active" : "")>
-          <a href="@Url.Action("Contact", "Home")">Contact</a>
-        </li>
-        <li class=@(@ViewBag.selectedItem == "extra" ? "active" : "")>
-          <a href="@Url.Action("Index", "Extra")">Extra</a>
-        </li>
-      </ul>
+
+    <!-- Site Content -->
+    <div id="site_content">
+      @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      Copyright ï¿½ @DateTime.Now.Year JustBlog All Rights Reserved
     </div>
   </div>
-</div>
-<div class="container body-content">
-  @RenderBody()
-  <hr/>
-  <footer>
-    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-  </footer>
-</div>
-
-@RenderSection("scripts", required: false)
 </body>
 </html>

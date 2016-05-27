@@ -3,13 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SimpleBlog.Core;
 using SimpleBlog.Core.DAL;
+using SimpleBlog.Models;
 
 namespace SimpleBlog.Controllers
 {
     public class BlogController : Controller
     {
+        private readonly IBlogRepository _blogRepository;
         private readonly BlogContext _db = new BlogContext();
+
+        public BlogController(IBlogRepository blogRepository)
+        {
+            _blogRepository = blogRepository;
+        }
+
+        public ViewResult Posts(int p = 1)
+        {    
+            // pick latest 10 posts
+            var viewModel = new ListViewModel(_blogRepository, p);
+
+            ViewBag.Title = "Latest Posts";
+            return View("List", viewModel);
+        }
 
         // GET: Blog
         public ActionResult Index(int? articleId, bool? forceReload)

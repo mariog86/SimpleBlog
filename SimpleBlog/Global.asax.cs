@@ -2,8 +2,6 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 
-using SimpleBlog.Core.Models;
-
 namespace SimpleBlog
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -14,6 +12,7 @@ namespace SimpleBlog
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Bootstrapper.Initialize();
         }
     }
 }
