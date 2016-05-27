@@ -39,5 +39,35 @@ namespace SimpleBlog.Core
         {
             return _dbContext.Set<Post>().Count(p => p.Published);
         }
+        public IList<Post> PostsForCategory(string categorySlug, int pageNo, int pageSize)
+        {
+            var posts = _dbContext.Set<Post>()
+                                .Where(p => p.Published && p.Category.UrlSlug.Equals(categorySlug))
+                                .OrderByDescending(p => p.PostedOn)
+                                .Skip(pageNo * pageSize)
+                                .Take(pageSize)
+                                .Include(p => p.Category)
+                                .ToList();
+
+            var postIds = posts.Select(p => p.Id).ToList();
+
+            return _dbContext.Set<Post>()
+                          .Where(p => postIds.Contains(p.Id))
+                          .OrderByDescending(p => p.PostedOn)
+                          .Include(p => p.Tags)
+                          .ToList();
+        }
+
+        public int TotalPostsForCategory(string categorySlug)
+        {
+            return _dbContext.Set<Post>()
+                        .Count(p => p.Published && p.Category.UrlSlug.Equals(categorySlug));
+        }
+
+        public Category Category(string categorySlug)
+        {
+            return _dbContext.Set<Category>()
+                        .FirstOrDefault(t => t.UrlSlug.Equals(categorySlug));
+        }
     }
 }

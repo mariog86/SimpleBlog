@@ -25,5 +25,17 @@ namespace SimpleBlog.Controllers
             return View("List", viewModel);
         }
 
+        public ViewResult Category(string category, int p = 1)
+        {
+            var viewModel = new ListViewModel(_blogRepository, category, p);
+
+            if (viewModel.Category == null)
+            {
+                throw new HttpException(404, "Category not found");
+            }
+
+            ViewBag.Title = $@"Latest posts on category ""{viewModel.Category.Name}""";
+            return View("List", viewModel);
+        }
     }
 }
