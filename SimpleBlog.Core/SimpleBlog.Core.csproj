@@ -64,6 +64,7 @@
     <Compile Include="Mappings\CategoryMapping.cs" />
     <Compile Include="Mappings\PostMapping.cs" />
     <Compile Include="Mappings\TagMapping.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Tag.cs" />

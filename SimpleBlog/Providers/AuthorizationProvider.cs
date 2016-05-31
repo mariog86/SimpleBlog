@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using System.Web.Security;
 
 using static System.Web.Security.FormsAuthentication;
 
@@ -11,7 +10,7 @@ namespace SimpleBlog.Providers
 
         public bool Login(string userName, string password)
         {
-            bool result = Membership.ValidateUser(userName, password);
+            bool result = Authenticate(userName, password);
 
             if (result)
             {
