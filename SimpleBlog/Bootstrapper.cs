@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
 using SimpleBlog.Core;
+using SimpleBlog.Providers;
 
 namespace SimpleBlog
 {
@@ -22,6 +23,7 @@ namespace SimpleBlog
             // register all your components with the container here  
             //This is the important line to edit  
             container.RegisterType<IBlogRepository, BlogRepository>();
+            container.RegisterType<IAuthorizationProvider, AuthorizationProvider>();
             
             return container;
         }

@@ -1,25 +1,27 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 
 using SimpleBlog.Models;
-
-using static System.Web.Security.FormsAuthentication;
+using SimpleBlog.Providers;
 
 namespace SimpleBlog.Controllers
 {
     [Authorize]
     public class AdminController : Controller
     {
+        private readonly IAuthorizationProvider _authorizationProvider;
+
+        public AdminController(IAuthorizationProvider authorizationProvider)
+        {
+            _authorizationProvider = authorizationProvider;
+        }
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if (_authorizationProvider.IsLoggedIn)
             {
-                if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                    return Redirect(returnUrl);
-
-                return RedirectToAction("Manage");
+                return RedirectToUrl(returnUrl);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -30,21 +32,38 @@ namespace SimpleBlog.Controllers
         [HttpPost, AllowAnonymous, ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _authorizationProvider.Login(model.UserName, model.Password))
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
-                {
-                    SetAuthCookie(model.UserName, false);
-
-                    if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-                        return Redirect(returnUrl);
-
-                    return RedirectToAction("Manage");
-                }
-
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                return RedirectToUrl(returnUrl);
             }
+
+            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            return View(model);
+        }
+
+        public ActionResult Manage()
+        {
             return View();
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Login", "Admin");
+
+        }
+
+        private ActionResult RedirectToUrl(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Manage");
+            }
         }
     }
 }
